@@ -1,0 +1,5 @@
+cron:
+- description: check tele2 3g
+  url: /3g/tele2
+  schedule: every monday 17:00
+  timezone: Europe/Moscow
