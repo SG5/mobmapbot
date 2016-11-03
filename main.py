@@ -20,6 +20,11 @@ def tele2Handler():
     return bot.tele2()
 
 
+@app.route('/4g/beeline', methods=['GET'])
+def beelineHandler():
+    return bot.beeline()
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     """Return a custom 404 error."""
