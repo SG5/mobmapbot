@@ -25,6 +25,21 @@ def beelineHandler():
     return bot.beeline()
 
 
+@app.route('/dvbt2/Chekhov', methods=['GET'])
+def ChekhovHandler():
+    return bot.Chekhov()
+
+
+@app.route('/dvbt2/Serpukhov', methods=['GET'])
+def SerpukhovHandler():
+    return bot.Serpukhov()
+
+
+@app.route('/dvbt2/Butovo', methods=['GET'])
+def ButovoHandler():
+    return bot.Butovo()
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     """Return a custom 404 error."""
