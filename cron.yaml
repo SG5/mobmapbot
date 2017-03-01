@@ -1,25 +1,24 @@
 cron:
 - description: check tele2 3g
   url: /3g/tele2
-  schedule: every monday 17:00
-  timezone: Europe/Moscow
-
-- description: check beeline 4g
-  url: /4g/beeline
-  schedule: every monday 17:01
+  schedule: every friday 17:12
   timezone: Europe/Moscow
 
 - description: check Chekhov dvb-t2
   url: /dvbt2/Chekhov
-  schedule: every monday 17:02
+  schedule: every friday 17:13
   timezone: Europe/Moscow
 
 - description: check Serpukhov dvb-t2
   url: /dvbt2/Serpukhov
-  schedule: every monday 17:03
+  schedule: every friday 17:14
   timezone: Europe/Moscow
 
 - description: check Butovo dvb-t2
   url: /dvbt2/Butovo
-  schedule: every monday 17:04
+  schedule: every friday 17:15
   timezone: Europe/Moscow
+
+- description: perform urls check
+  url: /check
+  schedule: every 20 minutes
