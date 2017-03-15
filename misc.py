@@ -1,5 +1,5 @@
 # coding=utf-8
-import urllib, urllib2, json
+import binascii, urllib, urllib2, json
 
 from bot import bot
 
@@ -17,3 +17,9 @@ def rfpl():
         bot.sendMessage(chat_id=CHAT_ID, text='rfpl: calendar change!')
 
     return 'ok'
+
+
+def velobike():
+    response = urllib2.urlopen('http://velobike.ru/news/')
+    if -1774534778 != binascii.crc32(response.read()):
+        bot.sendMessage(chat_id=CHAT_ID, text='velobike: news updated!')
