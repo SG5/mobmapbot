@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 
 import bot
@@ -47,3 +49,7 @@ def ButovoHandler():
 def page_not_found(e):
     """Return a custom 404 error."""
     return 'Sorry, Nothing at this URL.', 404
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))

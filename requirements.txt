@@ -4,6 +4,5 @@
 # in `lib/` subdirectory.
 #
 # Note: The `lib` directory is added to `sys.path` by `appengine_config.py`.
-Flask~=0.10
-gcloud~=0.18.1
-python-telegram-bot~=4.2.1
+Flask~=1.0.2
+python-telegram-bot~=10.1.0
