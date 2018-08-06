@@ -1,11 +1,10 @@
-from google.appengine.api import app_identity
+import os
 from hashlib import sha256
 from flask import request
-from secret import get_bot_token as token
 import telegram
 
-bot = telegram.Bot(token=token())
-WEB_HOOK_URL = sha256(token()).hexdigest()
+bot = telegram.Bot(token=os.environ['TELEGRAM_BOT_TOKEN'])
+WEB_HOOK_URL = sha256(os.environ['TELEGRAM_BOT_TOKEN']).hexdigest()
 
 
 def webhook_handler():

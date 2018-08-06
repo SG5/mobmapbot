@@ -7,7 +7,6 @@ import mobile
 import tv
 
 app = Flask(__name__)
-bot.send_webhook_url()
 
 
 @app.route('/')
