@@ -22,3 +22,11 @@ def velobike():
     if (-1774534778) != binascii.crc32(response.read()):
         bot.sendMessage(chat_id=CHAT_ID, text='velobike: news updated!')
     return 'ok'
+
+
+def visa_bulletin():
+    response = urllib.request.urlopen('https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html')
+    if binascii.crc32(response.read()) != 1137916259:
+        bot.sendMessage(chat_id=CHAT_ID, text='state.gov: new VB!')
+    return 'ok'
+

@@ -2,9 +2,7 @@ import os
 
 from flask import Flask
 
-import bot
-import mobile
-import tv
+import misc
 
 app = Flask(__name__)
 
@@ -14,34 +12,9 @@ def hello():
     return 'Hello World'
 
 
-@app.route('/' + bot.get_webhook_url(), methods=['POST'])
-def webhook_handler():
-    return bot.webhook_handler()
-
-
-@app.route('/3g/tele2', methods=['GET'])
+@app.route('/misc/vb', methods=['GET'])
 def tele2Handler():
-    return mobile.tele2()
-
-
-@app.route('/4g/beeline', methods=['GET'])
-def beelineHandler():
-    return mobile.beeline()
-
-
-@app.route('/dvbt2/Chekhov', methods=['GET'])
-def ChekhovHandler():
-    return tv.Chekhov()
-
-
-@app.route('/dvbt2/Serpukhov', methods=['GET'])
-def SerpukhovHandler():
-    return tv.Serpukhov()
-
-
-@app.route('/dvbt2/Butovo', methods=['GET'])
-def ButovoHandler():
-    return tv.Butovo()
+    return misc.visa_bulletin()
 
 
 @app.errorhandler(404)
