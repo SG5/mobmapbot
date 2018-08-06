@@ -1,4 +1,4 @@
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 from bot import bot
 
@@ -32,7 +32,7 @@ def process_tower_status(nodeid):
 
 def get_tower_status(nodeid):
     url = 'http://xn--80aa2azak.xn--p1aadc.xn--p1ai/rtrs/ajax/node?node={}&multiplex=1'.format(nodeid)
-    html = urllib2.urlopen(url).read()
+    html = urllib.request.urlopen(url).read()
 
     start = html.find('<h4') + 1
 

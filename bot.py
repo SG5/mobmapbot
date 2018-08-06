@@ -4,7 +4,7 @@ from flask import request
 import telegram
 
 bot = telegram.Bot(token=os.environ['TELEGRAM_BOT_TOKEN'])
-WEB_HOOK_URL = sha256(os.environ['TELEGRAM_BOT_TOKEN']).hexdigest()
+WEB_HOOK_URL = sha256(os.environ['TELEGRAM_BOT_TOKEN'].encode()).hexdigest()
 
 
 def webhook_handler():
