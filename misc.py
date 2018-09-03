@@ -26,7 +26,8 @@ def velobike():
 
 def visa_bulletin():
     response = urllib.request.urlopen('https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html')
-    if binascii.crc32(response.read()) != 1137916259:
+    response_data = response.read()
+    if binascii.crc32(response_data) != 1508426490:
         bot.sendMessage(chat_id=CHAT_ID, text='state.gov: new VB!')
     return 'ok'
 
