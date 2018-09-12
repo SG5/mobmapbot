@@ -1,5 +1,9 @@
 # coding=utf-8
-import binascii, urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse, json
+import binascii
+from datetime import datetime, timedelta
+import json
+import urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 from bot import bot
 
@@ -25,9 +29,24 @@ def velobike():
 
 
 def visa_bulletin():
-    response = urllib.request.urlopen('https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html')
-    response_data = response.read()
-    if binascii.crc32(response_data) != 1508426490:
-        bot.sendMessage(chat_id=CHAT_ID, text='state.gov: new VB!')
+    url = 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html'
+    
+    response = urllib.request.urlopen(url)
+    was_modified = datetime.strptime(response.headers['Last-Modified'], '%a, %d %b %Y %H:%M:%S GMT')
+    now = datetime.utcnow()
+
+    if  now - was_modified < timedelta(seconds=90):
+        response_data = response.read().decode()
+        next_bulletin = (now.replace(month=now.month+1) if now.month < 12 else now.replace(month=1, year=now.year+1)).strftime('%B %Y')
+        
+        if next_bulletin in response_data:
+            reply_links = [[
+                InlineKeyboardButton('travel.state.gov', url=url)
+            ]]
+            bot.sendMessage(
+                chat_id=CHAT_ID, text=next_bulletin+' VB released!',
+                reply_markup=InlineKeyboardMarkup(reply_links)
+            )
+
     return 'ok'
 
