@@ -1,11 +1,13 @@
 import os
 from hashlib import sha256
 from flask import request
+from pymongo import MongoClient
 import telegram
 
 bot = telegram.Bot(token=os.environ['TELEGRAM_BOT_TOKEN'])
 WEB_HOOK_URL = sha256(os.environ['TELEGRAM_BOT_TOKEN'].encode()).hexdigest()
 
+db = MongoClient(os.environ['MONGODB_CONNECT'])[os.environ.get('MONGODB_DATABASE', 'releases')]
 
 def webhook_handler():
     # retrieve the message in JSON and then transform it to Telegram object

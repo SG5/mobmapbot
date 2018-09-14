@@ -5,4 +5,5 @@
 #
 # Note: The `lib` directory is added to `sys.path` by `appengine_config.py`.
 Flask~=1.0.2
+pymongo~=3.7.1
 python-telegram-bot~=10.1.0
