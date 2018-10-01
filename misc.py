@@ -36,15 +36,16 @@ def visa_bulletin():
         url = 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html'
         response = urllib.request.urlopen(url)
         response_data = response.read().decode()
-        
+
         if next_bulletin in response_data:
             reply_links = [[
                 InlineKeyboardButton('travel.state.gov', url=url)
             ]]
-            bot.sendMessage(
-                chat_id=CHAT_ID, text=next_bulletin+' VB released!',
-                reply_markup=InlineKeyboardMarkup(reply_links)
-            )
+            for chat in [CHAT_ID, '-1001110150719']:
+                bot.sendMessage(
+                    chat_id=chat, text=next_bulletin+' VB has been released!',
+                    reply_markup=InlineKeyboardMarkup(reply_links)
+                )
             db.bulletins.insert_one({'name': next_bulletin})
 
     return 'ok'
