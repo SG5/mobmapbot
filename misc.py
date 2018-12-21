@@ -2,6 +2,7 @@
 import binascii
 from datetime import datetime
 import json
+import re
 import urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
@@ -37,16 +38,34 @@ def visa_bulletin():
         response = urllib.request.urlopen(url)
         response_data = response.read().decode()
 
-        if next_bulletin in response_data:
+        search_result = re.search(f'<a.+?href="(.+?)".+?{next_bulletin}', response_data)
+
+        if search_result:
+            chats = [CHAT_ID, '-1001110150719']
+            bulletin_url = 'https://travel.state.gov' + search_result.group(1)
             reply_links = [[
-                InlineKeyboardButton('travel.state.gov', url=url)
+                InlineKeyboardButton(next_bulletin, url=bulletin_url)
             ]]
-            for chat in [CHAT_ID, '-1001110150719']:
+
+            for chat in chats:
                 bot.sendMessage(
-                    chat_id=chat, text=next_bulletin+' VB has been released!',
+                    chat_id=chat, parse_mode='Markdown',
+                    text=f'🇺🇸🤠🇺🇸\n*{next_bulletin}* VB has been released!',
                     reply_markup=InlineKeyboardMarkup(reply_links)
                 )
             db.bulletins.insert_one({'name': next_bulletin})
+
+            response = urllib.request.urlopen(bulletin_url)
+            response_data = response.read().decode()
+
+            search_result = re.search('EUROPE.+?EUROPE.+?([\d,]+)', response_data, re.DOTALL)
+
+            if search_result:
+                for chat in chats:
+                    bot.sendMessage(
+                        chat_id=chat, parse_mode='Markdown',
+                        text=f'New case number: *{search_result.group(1)}*\n😱'
+                    )
 
     return 'ok'
 
